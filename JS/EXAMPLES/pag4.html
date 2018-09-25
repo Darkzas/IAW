@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document 4</title>
+</head>
+<body>
+    <img id="myimage" onclick="changeImage()" src="zelda.jpg" />
+
+    <p>Click the light bulb to turn on/off the light</p>
+    <script>
+        function changeImage() {
+            var element = document.getElementById('myimage');
+
+            if (element.src.match("metal-gear")) {
+                element.src = "zelda.jpg";
+            } else {
+                element.src = "metal-gear.jpg";
+            }
+        }
+    </script>
+</body>
+</html>

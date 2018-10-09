@@ -8,7 +8,7 @@ while (contador <= numberLimit) {
 
     if (number % 2 === 0) {
         pair++;
-    } else if (number % 1 === 0) {
+    } else {
         odd++;
     }
 

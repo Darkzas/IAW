@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(ready);
+
+        function ready() {
+            var books = [];
+
+            $("#b1").click(addBook);
+
+            $("#b2").click(removeBook);
+
+            $("#b3").click(listBooks);
+
+            function Llibre(t, nump, categ, col, f) {
+                this.titol = t;
+                this.numpagines = nump;
+                this.categoria = categ;
+                this.columna = col;
+                this.fila = f;
+            }
+
+            function addBook() {
+                var titol = $("#title").val();
+                var numpagines = $("#pages").val();
+                var categoria = $("#cats").val();
+                var col = $("#col").val();
+                var row = $("#row").val();
+
+                var ocupado = bookExists(col, row);
+                console.log(ocupado);
+
+                if (ocupado === false) {
+                    books.push = new Llibre(titol, numpagines, categoria, col, row);
+                    console.log(books);
+                } else {
+                    alert('YA HAY UN LIBRO EN ESTA POSICIÓN');
+                }
+            }
+
+            function removeBook() {
+                var col = $("#col").val();
+                var row = $("#row").val();
+
+                var book = bookExists(col, row);
+                console.log(book);
+
+                if (book !== false) {
+                    books.splice(book, 1);
+                } else {
+                    alert('NO HAY LIBRO EN ESTA POSICIÓN');
+                }
+                console.log(books);
+            }
+
+            function bookExists(col, row) {
+                var resultado = false;
+
+                for (var i = 0; i < books.length; i++) {
+                    var book = books[i];
+
+                    if (book.columna == col && book.fila == row) {
+                        resultado = i;
+                        break;
+                    }
+                }
+
+                return resultado;
+            }
+
+            function listBooks() {
+                var lista = '<table>';
+
+                for (var i = 0; i < books.length; i++) {
+                    lista += '<tr>';
+
+                    if ($.isArray(books[i])) {
+                        for (var j = 0; j < books[i].length; j++) {
+                            var llibre = books[i][j];
+
+                            if (llibre) {
+                                lista += '<td>' + llibre.titol + '</td>';
+                            }
+                        }
+                    }
+
+
+                    lista += '</tr>';
+                }
+
+                lista += '</table>';
+
+                $("#printer").html(lista);
+            }
+        }
+    </script>
+</head>
+<style>
+    table, tr, td {
+        border: 1px solid black;
+    }
+    td { text-align:center;}
+</style>
+<body>
+TITLE: <input type="text" id="title" /><br/>
+NUM.PAGES: <input type="text" id="pages" /><br/>
+CATEGORY:
+<select id="cats">
+    <option value="CLASSIC">CLASSIC</option>
+    <option value="SCIENCE">SCIENCE</option>
+    <option value="SPORTS">SPORTS</option>
+    <option value="COMEDY">COMEDY</option>
+</select> <br/>
+POSITION (COL / ROW):
+<select id="col">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+</select> /
+<select id="row">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+</select> <br/>
+<button id="b1">ADD BOOK</button>
+<button id="b2">REMOVE BOOK</button>
+<button id="b3">PRINT ALL BOOKS</button>
+<button id="b4">PRINT LIBRARY</button>
+<button id="b5">NUM BOOKS</button>
+<hr/>
+<div id="printer"></div>
+</body>
+</html>
